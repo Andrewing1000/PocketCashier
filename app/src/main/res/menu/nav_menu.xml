@@ -1,21 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn = "navigation_view">
 
     <group android:checkableBehavior="single">
 
         <item
-            android:id="@+id/nav_inventory"
-            android:title="Inventario"/>
+            android:enabled="false"
+            android:title=""
+            android:actionLayout="@layout/menu_title"
+            app:showAsAction="always"
+            />
 
         <item
             android:id="@+id/nav_sales"
-            android:title="Ventas" />
+            android:title="Ventas"/>
+
+        <item
+            android:id="@+id/nav_history"
+            android:title="Historial de compras" />
+
+    </group>
+
+    <group>
+        <item
+            android:id="@+id/nav_inventory"
+            android:title="Inventario"
+            />
 
         <item
             android:id="@+id/nav_purchase"
             android:title="Compras" />
+
+
+        <item
+            android:id="@+id/nav_clients"
+            android:title="Clientes"/>
 
     </group>
 </menu>
