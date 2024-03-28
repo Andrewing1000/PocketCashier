@@ -44,11 +44,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         if(itemSelectedId == R.id.nav_sales){
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new SalesFragment()).commit();
-            onBackPressed();
+            //onBackPressed();
         }
         else if(itemSelectedId == R.id.nav_inventory){
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new InventoryFragment()).commit();
-            onBackPressed();
+            //onBackPressed();
         }
         else if(itemSelectedId == R.id.nav_purchase){
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PurchaseFragment()).commit();

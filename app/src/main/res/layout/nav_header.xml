@@ -5,16 +5,19 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="bottom"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="@color/back_blue">
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_launcher_foreground"/>
+        android:src="@drawable/cash"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/icon_title_font"
+        android:fontFamily="@font/urbanist_extra_bold"
+        android:textSize="40dp"
+        android:textColor="@color/white"
         android:text="PocketCashier"></TextView>
 </LinearLayout>
