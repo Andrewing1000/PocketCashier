@@ -7,29 +7,51 @@
     <group android:checkableBehavior="single">
 
         <item
+            android:id="@+id/POS_title"
+            android:enabled="false"
+            android:title="@null"
+            app:showAsAction="always"
+            android:actionLayout="@layout/menu_title"/>
+
+
+        <item
             android:id="@+id/nav_sales"
-            android:title="Ventas"/>
+            android:icon="@drawable/cart"
+            android:title="Ventas" />
 
         <item
             android:id="@+id/nav_history"
+            android:icon="@android:drawable/ic_menu_recent_history"
             android:title="Historial de compras" />
+
 
     </group>
 
-    <group>
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/Inv_title"
+            android:enabled="false"
+            android:title="@null"
+            app:showAsAction="always"
+            android:actionLayout="@layout/menu_title"/>
+
+
         <item
             android:id="@+id/nav_inventory"
-            android:title="Inventario"
-            />
+            android:icon="@android:drawable/ic_menu_agenda"
+            android:title="Inventario" />
 
         <item
             android:id="@+id/nav_purchase"
+            android:icon="@android:drawable/ic_menu_add"
             android:title="Compras" />
 
 
         <item
             android:id="@+id/nav_clients"
-            android:title="Clientes"/>
+            android:icon="@android:drawable/ic_menu_my_calendar"
+            android:title="Clientes" />
 
     </group>
 </menu>

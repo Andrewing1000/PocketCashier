@@ -1,7 +1,11 @@
 package com.example.pocketcashier;
 
+import android.graphics.ColorFilter;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
 import android.os.Bundle;
 
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -19,6 +23,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,6 +39,8 @@ public class InventoryFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_inventory, container, false);
 
+
+        ColorFilter iconFilter = new PorterDuffColorFilter(ContextCompat.getColor(container.getContext(), R.color.button_orange), PorterDuff.Mode.SRC_IN);
         // Initialize RecyclerView and layout manager
         recyclerView = rootView.findViewById(R.id.recycler_view_products);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -45,6 +53,8 @@ public class InventoryFragment extends Fragment {
         int space = getResources().getDimensionPixelSize(R.dimen.item_spacing); // Adjust this dimension as needed
         recyclerView.addItemDecoration(new SpaceItemDecoration(space));
 
+        FloatingActionButton addButton = rootView.findViewById(R.id.fab_add_product);
+        addButton.setColorFilter(iconFilter);
 
         // Dummy data - Replace with your actual data retrieval logic
         productList.add(new Product("Product 1", "Red", 10.99));

@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/main_background">
 
     <!-- Title -->
@@ -39,8 +40,14 @@
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        android:background="@color/button_orange"
+
+        android:background="@drawable/fab_shape"
+        android:backgroundTint="@color/spinner_black"
+        android:scrollbarThumbHorizontal="@color/background_transparent"
+        android:scrollbarThumbVertical="@color/background_transparent"
+        android:scrollbarTrackHorizontal="@color/background_transparent"
+        android:scrollbarTrackVertical="@color/background_transparent"
         android:src="@android:drawable/ic_menu_add"
- />
+        app:fabSize="normal" />
 
 </RelativeLayout>

@@ -6,12 +6,12 @@
     android:layout_height="wrap_content"
     android:gravity="bottom"
     android:padding="16dp"
-    android:background="@color/back_blue">
+    android:background="@color/menu_grey">
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/cash"/>
+        android:src="@drawable/cash" />
 
     <TextView
         android:layout_width="wrap_content"

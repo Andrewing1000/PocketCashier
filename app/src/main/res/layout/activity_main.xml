@@ -36,9 +36,10 @@
         android:id="@+id/nav_view"
         android:layout_gravity="start"
         app:headerLayout="@layout/nav_header"
-        android:background="@color/menu_grey"
+        android:background="@color/black"
         app:itemTextColor="@color/white"
         app:itemTextAppearance="@style/drawer_menu_item"
-        app:menu="@menu/nav_menu"/>
+        app:menu="@menu/nav_menu"
+        />
 
 </androidx.drawerlayout.widget.DrawerLayout>
