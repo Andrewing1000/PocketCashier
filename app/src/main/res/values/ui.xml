@@ -2,11 +2,16 @@
 <resources>
     <style name="drawer_menu_item" parent="android:Widget.TextView">
         <item name="android:fontFamily">@font/urbanist_regular</item>
-        <item name="android:textSize">16dp</item>
+        <item name="android:textSize">20dp</item>
     </style>
 
     <style name="drawer_menu_title" parent="android:Widget.TextView">
         <item name="android:fontFamily">@font/urbanist_bold</item>
-        <item name="android:textSize">20dp</item>
+        <item name="android:textSize">25dp</item>
+    </style>
+
+    <style name="ToolbarStyle" parent="Widget.AppCompat.Toolbar">
+        <item name="android:textColor">#FFFFFF</item> <!-- White text color -->
+        <item name="android:fontFamily">@font/urbanist_bold</item><!-- White icon color -->
     </style>
 </resources>

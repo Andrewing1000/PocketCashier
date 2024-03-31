@@ -1,8 +1,11 @@
 package com.example.pocketcashier;
 
+import android.graphics.Color;
 import android.graphics.ColorFilter;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 
 import androidx.core.content.ContextCompat;
@@ -39,6 +42,13 @@ public class InventoryFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_inventory, container, false);
 
+        FloatingActionButton fab = rootView.findViewById(R.id.fab_add_product);
+
+        GradientDrawable ovalShape = new GradientDrawable();
+        ovalShape.setShape(GradientDrawable.OVAL); // Set shape to oval
+        ovalShape.setColor(ContextCompat.getColor(container.getContext(), R.color.background_transparent));
+
+        fab.setBackground(ovalShape);
 
         ColorFilter iconFilter = new PorterDuffColorFilter(ContextCompat.getColor(container.getContext(), R.color.button_orange), PorterDuff.Mode.SRC_IN);
         // Initialize RecyclerView and layout manager

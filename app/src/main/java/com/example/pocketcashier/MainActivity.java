@@ -10,6 +10,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.ClipData;
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.ColorFilter;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
@@ -46,19 +47,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         posTitle.setActionView(new MenuTitle(context, "Punto de Venta", null));
 
         MenuItem saleNav = menu.findItem(R.id.nav_sales);
-        saleNav.getIcon().setColorFilter(iconFilter);
+        saleNav.getIcon().setAlpha(150);
 
         MenuItem histNav = menu.findItem(R.id.nav_history);
-        histNav.getIcon().setColorFilter(iconFilter);
+        histNav.getIcon().setAlpha(255);
 
         MenuItem invNav = menu.findItem(R.id.nav_inventory);
-        invNav.getIcon().setColorFilter(iconFilter);
+        invNav.getIcon().setAlpha(255);
 
         MenuItem purchaseNav = menu.findItem(R.id.nav_purchase);
-        purchaseNav.getIcon().setColorFilter(iconFilter);
+        purchaseNav.getIcon().setAlpha(255);
 
         MenuItem clientNav= menu.findItem(R.id.nav_clients);
-        clientNav.getIcon().setColorFilter(iconFilter);
+        clientNav.getIcon().setAlpha(255);
 
         MenuItem invTitle = menu.findItem(R.id.Inv_title);
         invTitle.setActionView(new MenuTitle(context, "Contabilidad", null));
@@ -68,9 +69,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 0, 0);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
+        toolbar.getNavigationIcon().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
 
         if(savedInstanceState == null){
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new SalesFragment()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new InventoryFragment()).commit();
             navigationView.setCheckedItem(R.id.nav_inventory);
         }
     }

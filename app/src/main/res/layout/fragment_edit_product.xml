@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/main_background">
+
+    <!-- Title -->
+
+    <RelativeLayout
+        android:id="@+id/header_container"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+
+        android:background="@color/black"
+
+        android:padding="20dp">
+
+
+        <TextView
+            android:id="@+id/text_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+
+            android:paddingTop="50dp"
+            android:paddingBottom="5dp"
+
+            android:text="Editar Producto"
+            android:textSize="30dp"
+            android:fontFamily="@font/urbanist_extra_bold"
+            android:gravity="left|center"
+
+            android:textColor="@color/white" />
+
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:layout_below="@+id/header_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+
+
+
+            android:background="@drawable/search_box"
+            android:paddingTop="10dp"
+            android:paddingBottom="12dp"
+            android:paddingLeft="10dp">
+
+            <ImageView
+                android:layout_width="23dp"
+                android:layout_height="23dp"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/search_icon"
+                app:tint="#FFFFFF"></ImageView>
+
+            <EditText
+                android:id="@+id/edit_product_name_field"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Producto"
+                android:textSize="25dp"
+                android:textColorHint="#C4C4C4"
+
+                android:background="@null"
+                android:backgroundTint="@null"
+                android:layout_gravity="center_vertical"
+
+                android:textColor="@color/white"
+                android:textAppearance="@style/drawer_menu_title"
+                android:fontFamily="@font/urbanist_regular"
+
+                android:paddingLeft="10dp"
+                android:layout_marginRight="25dp">
+            </EditText>
+        </LinearLayout>
+
+
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:src="@drawable/image_place_holder"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp">
+
+        </ImageView>
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            android:layout_marginBottom="20dp"
+            android:gravity="center">
+
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+
+                android:text="Categoría:"
+                android:textColor="@color/white"
+
+                android:textSize="20dp"
+                android:fontFamily="@font/urbanist_regular"
+
+                android:layout_gravity="center_vertical|right">
+
+            </TextView>
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_weight="1"
+
+
+
+                android:background="@drawable/search_box"
+                android:paddingTop="10dp"
+                android:paddingBottom="12dp"
+                android:paddingLeft="10dp">
+
+
+                <Spinner
+                    android:id="@+id/edit_product_des_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Sadasdsasdwa"
+                    android:textSize="20dp"
+                    android:textColorHint="#C4C4C4"
+
+                    android:background="@null"
+                    android:backgroundTint="@null"
+                    android:layout_gravity="center_vertical"
+
+                    android:textColor="@color/white"
+                    android:textAppearance="@style/drawer_menu_title"
+                    android:fontFamily="@font/urbanist_regular"
+
+                    android:paddingLeft="10dp"
+                    android:layout_marginRight="25dp">
+                </Spinner>
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+
+
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            android:layout_marginBottom="20dp"
+            android:gravity="center">
+
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+
+                android:text="Precio:"
+                android:textColor="@color/white"
+
+                android:textSize="20dp"
+                android:fontFamily="@font/urbanist_regular"
+
+                android:layout_gravity="center_vertical|right">
+
+            </TextView>
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_weight="1"
+
+
+
+                android:background="@drawable/search_box"
+                android:paddingTop="10dp"
+                android:paddingBottom="12dp"
+                android:paddingLeft="10dp">
+
+
+                <EditText
+                    android:id="@+id/edit_product_pri_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="34 Bs."
+                    android:textSize="20dp"
+                    android:textColorHint="#C4C4C4"
+
+                    android:background="@null"
+                    android:backgroundTint="@null"
+                    android:layout_gravity="center_vertical"
+
+                    android:textColor="@color/white"
+                    android:textAppearance="@style/drawer_menu_title"
+                    android:fontFamily="@font/urbanist_regular"
+
+                    android:paddingLeft="10dp"
+                    android:layout_marginRight="25dp">
+                </EditText>
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+
+
+
+
+
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            android:layout_marginBottom="20dp"
+            android:gravity="center">
+
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+
+                android:text="Cantidad:"
+                android:textColor="@color/white"
+                android:textSize="20dp"
+                android:fontFamily="@font/urbanist_regular"
+
+                android:layout_gravity="center_vertical|right">
+
+            </TextView>
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_weight="1"
+
+
+
+                android:background="@drawable/search_box"
+                android:paddingTop="10dp"
+                android:paddingBottom="12dp"
+                android:paddingLeft="10dp">
+
+
+                <EditText
+                    android:id="@+id/edit_product_cant_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="123"
+                    android:textSize="20dp"
+                    android:textColorHint="#C4C4C4"
+
+                    android:background="@null"
+                    android:backgroundTint="@null"
+                    android:layout_gravity="center_vertical"
+
+                    android:textColor="@color/white"
+                    android:textAppearance="@style/drawer_menu_title"
+                    android:fontFamily="@font/urbanist_regular"
+
+                    android:paddingLeft="10dp"
+                    android:layout_marginRight="25dp">
+                </EditText>
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            android:gravity="center">
+
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+
+                android:text="Color:"
+                android:textColor="@color/white"
+
+                android:textSize="20dp"
+                android:fontFamily="@font/urbanist_regular"
+
+                android:layout_gravity="center_vertical|right">
+
+            </TextView>
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_weight="1"
+
+
+
+                android:background="@drawable/search_box"
+                android:paddingTop="10dp"
+                android:paddingBottom="12dp"
+                android:paddingLeft="10dp">
+
+
+                <EditText
+                    android:id="@+id/edit_product_col_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Rojo"
+                    android:textSize="20dp"
+                    android:textColorHint="#C4C4C4"
+
+                    android:background="@null"
+                    android:backgroundTint="@null"
+                    android:layout_gravity="center_vertical"
+
+                    android:textColor="@color/white"
+                    android:textAppearance="@style/drawer_menu_title"
+                    android:fontFamily="@font/urbanist_regular"
+
+                    android:paddingLeft="10dp"
+                    android:layout_marginRight="25dp">
+                </EditText>
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+
+
+
+
+    </LinearLayout>
+
+</RelativeLayout>

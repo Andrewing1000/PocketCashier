@@ -1,23 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingTop="20dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:gravity="bottom"
-    android:padding="16dp"
-    android:background="@color/menu_grey">
+    android:background="@color/black"
+    android:orientation="vertical">
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/cash" />
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/urbanist_extra_bold"
-        android:textSize="40dp"
-        android:textColor="@color/white"
-        android:text="PocketCashier"></TextView>
+        android:padding="16dp"
+        android:background="@color/black">
+
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="75dp"
+            android:layout_gravity="left"
+            android:scaleType="fitStart"
+            android:src="@drawable/cash"
+            app:tint="@color/button_orange" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/urbanist_extra_bold"
+            android:textSize="30dp"
+            android:gravity="center"
+            android:paddingBottom="10dp"
+            android:textColor="@color/white"
+            android:text="PocketCashier"></TextView>
+
+    </LinearLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/button_white"/>
 </LinearLayout>
+

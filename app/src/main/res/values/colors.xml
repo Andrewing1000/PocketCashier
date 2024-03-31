@@ -3,9 +3,9 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="back_blue">#203141</color>
-    <color name="button_orange">#FF6B00</color>
+    <color name="button_orange">#F7FF00</color>
     <color name="background_transparent">#17C4C4C4</color>
-    <color name="button_blue">#0061A8</color>
+    <color name="button_blue">#FF278F83</color>
     <color name="slider_grey">#B3C4C4C4</color>
     <color name="text_field_grey">#61C4C4C4</color>
     <color name="spinner_black">#80000000</color>
