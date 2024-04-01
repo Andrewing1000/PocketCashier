@@ -35,8 +35,8 @@
 
 
         <LinearLayout
-            android:id="@+id/save_button"
-            android:layout_width="150dp"
+            android:id="@+id/sell_button"
+            android:layout_width="160dp"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_alignParentRight="true"
@@ -69,7 +69,7 @@
                 android:paddingBottom="3dp"
 
                 android:gravity="center"
-                android:text="Guardar"
+                android:text="Vender"
                 android:fontFamily="@font/urbanist_bold"
                 android:textSize="20dp">
 
@@ -79,12 +79,12 @@
 
 
         <LinearLayout
-            android:id="@+id/delete_button"
-            android:layout_width="150dp"
+            android:id="@+id/cancel_button"
+            android:layout_width="160dp"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_alignParentRight="true"
-            android:layout_below="@id/save_button"
+            android:layout_below="@id/sell_button"
             android:layout_marginTop="20dp"
 
             android:background="@drawable/button_background"
@@ -115,7 +115,7 @@
                 android:paddingBottom="3dp"
 
                 android:gravity="center"
-                android:text="Eliminar"
+                android:text="Cancelar"
                 android:fontFamily="@font/urbanist_bold"
                 android:textSize="20dp">
 
@@ -136,10 +136,10 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentRight="true"
 
-            android:paddingTop="50dp"
+
             android:paddingBottom="5dp"
 
-            android:text="Editar Producto"
+            android:text="Confirmar Venta"
             android:textSize="30dp"
             android:fontFamily="@font/urbanist_extra_bold"
             android:gravity="left|center"
@@ -147,6 +147,8 @@
             android:textColor="@color/white" />
 
     </RelativeLayout>
+
+    <!-- RecyclerView -->
 
 
     <LinearLayout
@@ -156,82 +158,21 @@
         android:orientation="vertical"
         android:padding="20dp">
 
-        <LinearLayout
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_cart"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:layout_height="200dp"
 
+            android:layout_below="@id/header_container"
+            android:layout_marginTop="0dp"
 
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/cart_item_background"
+            android:clipToPadding="false"
+            android:paddingBottom="80dp"
+            android:scrollbars="vertical" />
 
-            android:background="@drawable/search_box"
-            android:paddingTop="10dp"
-            android:paddingBottom="12dp"
-            android:paddingLeft="10dp">
-
-            <ImageView
-                android:layout_width="23dp"
-                android:layout_height="23dp"
-                android:layout_gravity="center_vertical"
-                android:src="@drawable/edit_icon"
-                app:tint="#FFFFFF"></ImageView>
-
-            <EditText
-                android:id="@+id/edit_product_name_field"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Producto"
-                android:textSize="25dp"
-                android:textColorHint="#C4C4C4"
-
-                android:background="@null"
-                android:backgroundTint="@null"
-                android:layout_gravity="center_vertical"
-
-                android:textColor="@color/white"
-                android:textAppearance="@style/drawer_menu_title"
-                android:fontFamily="@font/urbanist_regular"
-                android:scrollHorizontally="true"
-                android:maxLines="1"
-                android:inputType="text"
-
-                android:paddingLeft="10dp"
-                android:layout_marginRight="25dp">
-            </EditText>
-        </LinearLayout>
-
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:id="@+id/product_image"
-                android:layout_width="wrap_content"
-                android:layout_height="120dp"
-                android:layout_centerInParent="true"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
-                android:src="@drawable/image_place_holder">
-
-            </ImageView>
-
-            <ImageButton
-                android:id="@+id/upload_product_image"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-
-                android:clickable="true"
-                android:layout_toRightOf="@id/product_image"
-                android:layout_marginLeft="20dp"
-                android:layout_alignBottom="@id/product_image"
-                android:scaleType="fitCenter"
-
-                android:background="@drawable/fab_shape"
-                android:backgroundTint="@color/transparent"
-                android:src="@drawable/upload"
-                app:tint="@color/button_orange" />
-
-        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -247,7 +188,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
 
-                android:text="Categoría:"
+                android:text="Total:"
                 android:textColor="@color/white"
 
                 android:textSize="20dp"
@@ -267,6 +208,78 @@
 
 
 
+
+                android:background="@drawable/total_background"
+                android:paddingTop="10dp"
+                android:paddingBottom="12dp"
+                android:paddingLeft="10dp">
+
+
+                <TextView
+                    android:id="@+id/total_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="34 Bs."
+                    android:textSize="20dp"
+                    android:textColorHint="#C4C4C4"
+                    android:scrollHorizontally="true"
+
+                    android:background="@null"
+                    android:backgroundTint="@null"
+                    android:layout_gravity="center_vertical"
+
+                    android:textColor="@color/white"
+                    android:textAppearance="@style/drawer_menu_title"
+                    android:fontFamily="@font/urbanist_bold"
+                    android:maxLines="1"
+                    android:inputType="text"
+
+                    android:paddingLeft="10dp"
+                    android:layout_marginRight="25dp">
+                </TextView>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            android:layout_marginBottom="20dp"
+            android:gravity="center">
+
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+
+                android:text="NIT/CI:"
+                android:textColor="@color/white"
+
+                android:textSize="20dp"
+                android:fontFamily="@font/urbanist_regular"
+
+                android:layout_gravity="center_vertical|right">
+
+            </TextView>
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:minHeight="50dp"
+                android:orientation="horizontal"
+                android:layout_weight="1"
+
+
+
                 android:background="@drawable/search_box"
                 android:paddingTop="10dp"
                 android:paddingBottom="12dp"
@@ -274,7 +287,7 @@
 
 
                 <Spinner
-                    android:id="@+id/category_spinner"
+                    android:id="@+id/client_spinner"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:backgroundTint="@null"
@@ -313,7 +326,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
 
-                android:text="Precio:"
+                android:text="Nombre:"
                 android:textColor="@color/white"
 
                 android:textSize="20dp"
@@ -339,10 +352,10 @@
 
 
                 <EditText
-                    android:id="@+id/edit_product_pri_field"
+                    android:id="@+id/client_name_field"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="34 Bs."
+                    android:hint="Loles"
                     android:textSize="20dp"
                     android:textColorHint="#C4C4C4"
                     android:scrollHorizontally="true"
@@ -363,151 +376,6 @@
             </LinearLayout>
 
         </LinearLayout>
-
-
-
-
-
-
-
-
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="2"
-            android:layout_marginBottom="20dp"
-            android:gravity="center">
-
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-
-                android:text="Cantidad:"
-                android:textColor="@color/white"
-                android:textSize="20dp"
-                android:fontFamily="@font/urbanist_regular"
-
-                android:layout_gravity="center_vertical|right">
-
-            </TextView>
-
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_weight="1"
-
-
-
-                android:background="@drawable/search_box"
-                android:paddingTop="10dp"
-                android:paddingBottom="12dp"
-                android:paddingLeft="10dp">
-
-
-                <EditText
-                    android:id="@+id/edit_product_cant_field"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="123"
-                    android:textSize="20dp"
-                    android:textColorHint="#C4C4C4"
-
-                    android:background="@null"
-                    android:backgroundTint="@null"
-                    android:layout_gravity="center_vertical"
-
-                    android:textColor="@color/white"
-                    android:textAppearance="@style/drawer_menu_title"
-                    android:fontFamily="@font/urbanist_regular"
-                    android:scrollHorizontally="true"
-                    android:maxLines="1"
-                    android:inputType="text"
-
-                    android:paddingLeft="10dp"
-                    android:layout_marginRight="25dp">
-                </EditText>
-            </LinearLayout>
-
-        </LinearLayout>
-
-
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="2"
-            android:gravity="center">
-
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-
-                android:text="Serie:"
-                android:textColor="@color/white"
-
-                android:textSize="20dp"
-                android:fontFamily="@font/urbanist_regular"
-
-                android:layout_gravity="center_vertical|right">
-
-            </TextView>
-
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_weight="1"
-
-
-
-                android:background="@drawable/search_box"
-                android:paddingTop="10dp"
-                android:paddingBottom="12dp"
-                android:paddingLeft="10dp">
-
-
-                <EditText
-                    android:id="@+id/edit_product_col_field"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="3432"
-                    android:textSize="20dp"
-                    android:textColorHint="#C4C4C4"
-
-                    android:background="@null"
-                    android:backgroundTint="@null"
-                    android:layout_gravity="center_vertical"
-
-                    android:textColor="@color/white"
-                    android:textAppearance="@style/drawer_menu_title"
-                    android:fontFamily="@font/urbanist_regular"
-                    android:scrollHorizontally="true"
-                    android:maxLines="1"
-                    android:inputType="text"
-
-                    android:paddingLeft="10dp"
-                    android:layout_marginRight="25dp">
-                </EditText>
-            </LinearLayout>
-
-        </LinearLayout>
-
-
-
-
-
 
     </LinearLayout>
 

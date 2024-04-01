@@ -1,4 +1,4 @@
-package com.example.pocketcashier;
+package com.example.pocketcashier.model;
 
 public class Product {
     private String name;

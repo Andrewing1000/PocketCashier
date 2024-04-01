@@ -15,14 +15,14 @@
 
 
         <item
-            android:id="@+id/nav_sales"
+            android:id="@+id/nav_pos"
             android:icon="@drawable/cart"
             android:title="Ventas" />
 
         <item
             android:id="@+id/nav_history"
             android:icon="@android:drawable/ic_menu_recent_history"
-            android:title="Historial de compras" />
+            android:title="Historial de ventas" />
 
 
     </group>
@@ -45,7 +45,12 @@
             android:title="Inventario" />
 
         <item
-            android:id="@+id/nav_purchase"
+            android:id="@+id/nav_categories"
+            android:icon="@android:drawable/ic_menu_more"
+            android:title="Categorías" />
+
+        <item
+            android:id="@+id/nav_purchases"
             android:icon="@android:drawable/ic_menu_add"
             android:title="Compras" />
 

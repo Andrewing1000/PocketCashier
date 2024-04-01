@@ -1,14 +1,22 @@
-package com.example.pocketcashier.ui;
+package com.example.pocketcashier.utilitaries;
 
 import android.content.Context;
+import android.graphics.ColorFilter;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.core.content.ContextCompat;
+
 import com.example.pocketcashier.R;
 
 public class MenuTitle extends LinearLayout {
+
+
+    //public static ColorFilter iconFilter = new PorterDuffColorFilter(ContextCompat.getColor(new View, R.color.button_orange), PorterDuff.Mode.SRC_IN);
     public MenuTitle(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context);

@@ -2,10 +2,8 @@ package com.example.pocketcashier;
 
 //import static com.example.pocketcashier.utilitaries.MenuTitle.iconFilter;
 
-import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -24,7 +22,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InventoryFragment extends Fragment {
+public class ConfirmSale extends Fragment {
 
     private RecyclerView recyclerView;
     private ProductAdapter adapter;
@@ -35,25 +33,11 @@ public class InventoryFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_inventory, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_sake_confirmation, container, false);
 
-        addProduct = rootView.findViewById(R.id.fab_add_product);
-
-        GradientDrawable ovalShape = new GradientDrawable();
-        ovalShape.setShape(GradientDrawable.OVAL); // Set shape to oval
-        ovalShape.setColor(ContextCompat.getColor(container.getContext(), R.color.transparent));
-
-        addProduct.setBackground(ovalShape);
-        //addProduct.setColorFilter(iconFilter);
-
-        addProduct.setOnClickListener(e -> {
-            if(getActivity() instanceof MainActivity){
-                ((MainActivity) getActivity()).startAddProduct();
-            }
-        });
 
         // Initialize RecyclerView and layout manager
-        recyclerView = rootView.findViewById(R.id.recycler_view_products);
+        recyclerView = rootView.findViewById(R.id.recycler_view_cart);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         // Initialize product list and adapter

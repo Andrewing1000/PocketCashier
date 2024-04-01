@@ -2,13 +2,12 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="back_blue">#203141</color>
-    <color name="button_orange">#F7FF00</color>
-    <color name="background_transparent">#17C4C4C4</color>
+    <color name="background_blue">#203141</color>
+    <color name="button_orange">#DCFF00</color>
     <color name="button_blue">#FF278F83</color>
-    <color name="slider_grey">#B3C4C4C4</color>
-    <color name="text_field_grey">#61C4C4C4</color>
-    <color name="spinner_black">#80000000</color>
-    <color name="button_white">#59F0F0F0</color>
-    <color name="menu_grey">#282828</color>
+
+    <color name="transparent">#00C4C4C4</color>
+    <color name="light_black">#26000000</color>
+    <color name="light_white">#1AFFFFFF</color>
+    <color name="light_grey">#26FDFDFD</color>
 </resources>

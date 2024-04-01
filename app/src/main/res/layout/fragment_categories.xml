@@ -42,7 +42,7 @@
                 android:id="@+id/search_item_field"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Ingrese el nombre de un item"
+                android:hint="Ingrese el nombre de una categoría"
                 android:textSize="18dp"
                 android:textColorHint="#80C4C4C4"
 
@@ -74,7 +74,7 @@
             android:paddingTop="50dp"
             android:paddingBottom="5dp"
 
-            android:text="Inventario de \nproductos"
+            android:text="Categorías"
             android:textSize="30dp"
             android:fontFamily="@font/urbanist_extra_bold"
             android:gravity="left|center"
@@ -86,7 +86,7 @@
 
     <!-- RecyclerView -->
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view_products"
+        android:id="@+id/recycler_view_categories"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/header_container"
@@ -99,7 +99,7 @@
 
     <!-- Floating Action Button -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_add_product"
+        android:id="@+id/fab_add_category"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
@@ -114,6 +114,6 @@
         android:background="@drawable/fab_shape"
         app:pressedTranslationZ="12dp"
         app:borderWidth="0dp"
-    />
+        />
 
 </RelativeLayout>

@@ -24,7 +24,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InventoryFragment extends Fragment {
+public class ClientsFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private ProductAdapter adapter;
@@ -35,25 +35,11 @@ public class InventoryFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_inventory, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_clients, container, false);
 
-        addProduct = rootView.findViewById(R.id.fab_add_product);
-
-        GradientDrawable ovalShape = new GradientDrawable();
-        ovalShape.setShape(GradientDrawable.OVAL); // Set shape to oval
-        ovalShape.setColor(ContextCompat.getColor(container.getContext(), R.color.transparent));
-
-        addProduct.setBackground(ovalShape);
-        //addProduct.setColorFilter(iconFilter);
-
-        addProduct.setOnClickListener(e -> {
-            if(getActivity() instanceof MainActivity){
-                ((MainActivity) getActivity()).startAddProduct();
-            }
-        });
 
         // Initialize RecyclerView and layout manager
-        recyclerView = rootView.findViewById(R.id.recycler_view_products);
+        recyclerView = rootView.findViewById(R.id.recycler_view_clients);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         // Initialize product list and adapter

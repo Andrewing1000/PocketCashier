@@ -36,7 +36,7 @@
 
         <LinearLayout
             android:id="@+id/save_button"
-            android:layout_width="150dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_alignParentRight="true"
@@ -78,55 +78,6 @@
         </LinearLayout>
 
 
-        <LinearLayout
-            android:id="@+id/delete_button"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_alignParentRight="true"
-            android:layout_below="@id/save_button"
-            android:layout_marginTop="20dp"
-
-            android:background="@drawable/button_background"
-            android:backgroundTint="@color/button_orange"
-
-            android:paddingVertical="5dp"
-            android:paddingRight="20dp">
-
-
-            <ImageButton
-                android:layout_width="18dp"
-                android:layout_height="18dp"
-                android:layout_gravity="center_vertical"
-
-                android:clickable="true"
-                android:layout_marginLeft="20dp"
-                android:scaleType="fitCenter"
-
-                android:background="@drawable/fab_shape"
-                android:backgroundTint="@color/transparent"
-                android:src="@drawable/delete"
-                app:tint="@color/black" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:paddingBottom="3dp"
-
-                android:gravity="center"
-                android:text="Eliminar"
-                android:fontFamily="@font/urbanist_bold"
-                android:textSize="20dp">
-
-            </TextView>
-
-        </LinearLayout>
-
-
-
-
-
         <TextView
             android:id="@+id/text_title"
             android:layout_width="match_parent"
@@ -139,7 +90,7 @@
             android:paddingTop="50dp"
             android:paddingBottom="5dp"
 
-            android:text="Editar Producto"
+            android:text="Agregar Producto"
             android:textSize="30dp"
             android:fontFamily="@font/urbanist_extra_bold"
             android:gravity="left|center"

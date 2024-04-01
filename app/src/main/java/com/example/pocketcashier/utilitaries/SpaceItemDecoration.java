@@ -1,4 +1,4 @@
-package com.example.pocketcashier;
+package com.example.pocketcashier.utilitaries;
 
 import android.graphics.Rect;
 import android.view.View;

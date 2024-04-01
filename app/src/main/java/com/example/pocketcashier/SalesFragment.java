@@ -1,64 +1,67 @@
 package com.example.pocketcashier;
 
+//import static com.example.pocketcashier.utilitaries.MenuTitle.iconFilter;
+
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link SalesFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.pocketcashier.model.Product;
+import com.example.pocketcashier.utilitaries.SpaceItemDecoration;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class SalesFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private RecyclerView recyclerView;
+    private ProductAdapter adapter;
+    private List<Product> productList;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
-    public SalesFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment SalesFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static SalesFragment newInstance(String param1, String param2) {
-        SalesFragment fragment = new SalesFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
+    FloatingActionButton addProduct;
+    @Nullable
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.fragment_sales, container, false);
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_sales, container, false);
+
+        // Initialize RecyclerView and layout manager
+        recyclerView = rootView.findViewById(R.id.recycler_view_sales);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        // Initialize product list and adapter
+        productList = new ArrayList<>();
+        adapter = new ProductAdapter(getActivity(), productList);
+        recyclerView.setAdapter(adapter);
+
+        int space = getResources().getDimensionPixelSize(R.dimen.item_spacing); // Adjust this dimension as needed
+        recyclerView.addItemDecoration(new SpaceItemDecoration(space));
+
+
+
+        // Dummy data - Replace with your actual data retrieval logic
+        productList.add(new Product("Product 1", "Red", 10.99));
+        productList.add(new Product("Product 2", "Blue", 15.99));
+        productList.add(new Product("Product 3", "Green", 20.99));
+        productList.add(new Product("Product 4", "Yellow", 25.99));
+        productList.add(new Product("Product 5", "Orange", 30.99));
+
+        // Notify adapter of data change
+        adapter.notifyDataSetChanged();
+
+        return rootView;
     }
 }
