@@ -9,6 +9,8 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.ColorFilter;
 import android.graphics.PorterDuff;
@@ -20,6 +22,12 @@ import android.view.MenuItem;
 import com.example.pocketcashier.model.Product;
 import com.example.pocketcashier.utilitaries.MenuTitle;
 import com.google.android.material.navigation.NavigationView;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -211,11 +219,42 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, purchaseFragment).commit();
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            drawerLayout.closeDrawer(GravityCompat.START);
+
+    private void saveImageToInternalStorage(Bitmap bitmapImage, String filename) {
+        FileOutputStream fos = null;
+        try {
+            File directory = new File(context.getFilesDir(), "images");
+            if (!directory.exists()) {
+                directory.mkdir();
+            }
+            File file = new File(directory, filename);
+            fos = new FileOutputStream(file);
+            bitmapImage.compress(Bitmap.CompressFormat.PNG, 100, fos);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            if (fos != null) {
+                try {
+                    fos.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
+
+
+    private Bitmap loadImageFromInternalStorage(String filename) {
+        try {
+            File directory = new File(context.getFilesDir(), "images");
+            File file = new File(directory, filename);
+            FileInputStream fis = new FileInputStream(file);
+            return BitmapFactory.decodeStream(fis);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+
 }

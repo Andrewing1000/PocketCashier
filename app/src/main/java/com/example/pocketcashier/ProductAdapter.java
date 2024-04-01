@@ -55,9 +55,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         }
 
         public void bind(Product product) {
-            nameTextView.setText(product.getName());
-            colorTextView.setText(product.getColor());
-            costTextView.setText(String.valueOf(product.getCost()));
+            //nameTextView.setText(product.getName());
+            //colorTextView.setText(product.getQuantity());
+            //costTextView.setText(String.valueOf(product.getUnitPrice()) + " Bs.");
         }
     }
 }
