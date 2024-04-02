@@ -44,20 +44,27 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     public class ProductViewHolder extends RecyclerView.ViewHolder {
 
         private TextView nameTextView;
-        private TextView colorTextView;
+        private TextView cantTextView;
         private TextView costTextView;
+
+        private TextView serialTextView;
+        private Product product;
 
         public ProductViewHolder(@NonNull View itemView) {
             super(itemView);
             nameTextView = itemView.findViewById(R.id.text_product_name);
-            colorTextView = itemView.findViewById(R.id.text_product_cant);
+            serialTextView = itemView.findViewById(R.id.text_serial_number);
+            cantTextView = itemView.findViewById(R.id.text_product_cant);
             costTextView = itemView.findViewById(R.id.text_product_cost);
         }
 
         public void bind(Product product) {
-            //nameTextView.setText(product.getName());
-            //colorTextView.setText(product.getQuantity());
-            //costTextView.setText(String.valueOf(product.getUnitPrice()) + " Bs.");
+            nameTextView.setText(product.getName());
+            serialTextView.setText(product.getSerialNumber()+"");
+            cantTextView.setText(product.getQuantity() + "");
+            costTextView.setText(product.getUnitPrice() + " Bs.");
+
+            this.product = product;
         }
     }
 }

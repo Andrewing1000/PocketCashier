@@ -3,7 +3,7 @@ package com.example.pocketcashier.model;
 public class Category {
     private int id;
     private String name;
-    private String image;
+    private String imagePath;
 
     // Constructor
     public Category() {
@@ -13,7 +13,7 @@ public class Category {
     public Category(int id, String name, String image) {
         this.id = id;
         this.name = name;
-        this.image = image;
+        this.imagePath = image;
     }
 
     // Métodos getter y setter para id
@@ -35,12 +35,12 @@ public class Category {
     }
 
     // Métodos getter y setter para image
-    public String getImage() {
-        return image;
+    public String getImagePath() {
+        return imagePath;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setImagePath(String image) {
+        this.imagePath = image;
     }
 
     // Método toString para imprimir la información de la categoría
@@ -49,7 +49,7 @@ public class Category {
         return "Category{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", image='" + image + '\'' +
+                ", image='" + imagePath + '\'' +
                 '}';
     }
 }

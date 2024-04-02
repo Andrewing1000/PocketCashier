@@ -15,7 +15,7 @@ public class DBManager extends SQLiteOpenHelper {
             "CREATE TABLE IF NOT EXISTS Categories (\n" +
                     "    id INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
                     "    name TEXT NOT NULL,\n" +
-                    "    image TEXT\n" +
+                    "    image_path TEXT\n" +
                     ");";
 
     private static final String SQL_CREATE_PRODUCTS_TABLE =
@@ -24,9 +24,16 @@ public class DBManager extends SQLiteOpenHelper {
                     "    name TEXT NOT NULL,\n" +
                     "    unit_price REAL NOT NULL,\n" +
                     "    serial_number TEXT NOT NULL,\n" +
-                    "    quantity INTEGER NOT NULL\n" +
-                    ");\n";
+                    "    image_path TEXT\n" +
+                    ");";
 
+
+    private static final String SQL_CREATE_PRODUCTS_CATEGORY_TABLE =
+                "CREATE TABLE ProductCategory (" +
+                    "   product_id INT," +
+                    "   category_id INT," +
+                    "   FOREIGN KEY (product_id) REFERENCES Products(id)," +
+                    "   FOREIGN KEY (category_id) REFERENCES Categories(id));";
 
 
 
@@ -41,10 +48,10 @@ public class DBManager extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        // Crea todas las tablas si no existen
+
         db.execSQL(SQL_CREATE_CATEGORY_TABLE);
         db.execSQL(SQL_CREATE_PRODUCTS_TABLE);
-
+        db.execSQL(SQL_CREATE_PRODUCTS_CATEGORY_TABLE);
     }
 
     @Override

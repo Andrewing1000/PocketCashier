@@ -1,5 +1,6 @@
 package com.example.pocketcashier;
 
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,12 +10,14 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.ColorFilter;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -28,6 +31,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -116,10 +120,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             switchToInventory();
             drawerLayout.closeDrawer(GravityCompat.START);
         }
-        else if(itemSelectedId == R.id.nav_categories){
-            switchToCategories();
-            drawerLayout.closeDrawer(GravityCompat.START);
-        }
         else if(itemSelectedId == R.id.nav_purchases){
             switchToPurchases();
             drawerLayout.closeDrawer(GravityCompat.START);
@@ -146,7 +146,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     public void cancelAddProduct(){
-
+        switchToInventory();
     }
 
     public void startEditProduct(Product product){
@@ -253,6 +253,34 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             return null;
+        }
+    }
+
+
+    public static boolean validString(String x){
+        if(x.equals("") || x == null){
+            return false;
+        }
+        return true;
+    }
+
+    private static final int PICK_IMAGE_REQUEST = 1;
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            // Get the URI of the selected file
+            Uri uri = data.getData();
+
+            // Now you can save the image file locally in your app using the URI
+            // For example, you can use ContentResolver to open an InputStream and copy the file
+            try {
+                InputStream inputStream = getContentResolver().openInputStream(uri);
+                // Now you can save the inputStream to a file in your app's local storage
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
         }
     }
 

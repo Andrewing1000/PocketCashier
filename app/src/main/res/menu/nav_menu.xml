@@ -44,10 +44,6 @@
             android:iconTintMode="screen"
             android:title="Inventario" />
 
-        <item
-            android:id="@+id/nav_categories"
-            android:icon="@android:drawable/ic_menu_more"
-            android:title="Categorías" />
 
         <item
             android:id="@+id/nav_purchases"
