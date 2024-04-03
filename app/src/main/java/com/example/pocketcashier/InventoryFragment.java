@@ -2,16 +2,21 @@ package com.example.pocketcashier;
 
 //import static com.example.pocketcashier.utilitaries.MenuTitle.iconFilter;
 
+import static com.example.pocketcashier.MainActivity.validString;
+
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,7 +28,11 @@ import com.example.pocketcashier.utilitaries.SpaceItemDecoration;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+
+import org.apache.commons.text.similarity.LevenshteinDistance;
+import org.apache.commons.text.similarity.JaccardDistance;
 
 public class InventoryFragment extends Fragment {
 
@@ -31,6 +40,30 @@ public class InventoryFragment extends Fragment {
     private ProductAdapter adapter;
     private ArrayList<Product> productList;
 
+    EditText searchBox;
+
+    private class NameComparator implements Comparator<Product> {
+        String target;
+        private NameComparator(String target){
+            this.target = target;
+        }
+        @Override
+        public int compare(Product i1, Product i2) {
+            Product p1 = i1;
+            Product p2 = i2;
+
+            String name1 = p1.getName();
+            String name2 = p2.getName();
+
+            return (int)(1000*(NameDistance(name1, this.target) - NameDistance(name2, this.target)));
+        }
+        private double NameDistance(String shot, String target){
+            LevenshteinDistance levenshteinDistance = new LevenshteinDistance();
+            JaccardDistance jaccardDistance = new JaccardDistance();
+            Integer maxLen = Math.max(target.length(), shot.length());
+            return 0.7*(levenshteinDistance.apply(target, shot)/maxLen) + 0.3*jaccardDistance.apply(target, shot);
+        }
+    }
 
     FloatingActionButton addProduct;
 
@@ -48,6 +81,7 @@ public class InventoryFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_inventory, container, false);
 
         addProduct = rootView.findViewById(R.id.fab_add_product);
+        searchBox = rootView.findViewById(R.id.search_item_field);
 
         GradientDrawable ovalShape = new GradientDrawable();
         ovalShape.setShape(GradientDrawable.OVAL); // Set shape to oval
@@ -59,6 +93,28 @@ public class InventoryFragment extends Fragment {
         addProduct.setOnClickListener(e -> {
             if(getActivity() instanceof MainActivity){
                 ((MainActivity) getActivity()).startAddProduct();
+            }
+        });
+
+        searchBox.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // This method is called before the text is changed.
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // This method is called when the text is being changed.
+                // You can perform actions here when the text changes.
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String search = searchBox.getText().toString();
+                if(validString(search)){
+                    productList.sort(new NameComparator(search));
+                    adapter.notifyDataSetChanged();
+                }
             }
         });
 
@@ -129,5 +185,15 @@ public class InventoryFragment extends Fragment {
 
     }
 
+
+    public void setAdapter(ProductAdapter adapter) {
+        this.adapter = adapter;
+        recyclerView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+    }
+
+    public ProductAdapter getAdapter(){
+        return adapter;
+    }
 
 }

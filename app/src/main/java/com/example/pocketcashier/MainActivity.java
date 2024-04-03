@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         toolbar.getNavigationIcon().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
 
 
-        posFragment = new POSFragment();
+        posFragment = new POSFragment(inventory);
         salesFragment = new SalesFragment();
         inventoryFragment = new InventoryFragment(inventory);
         purchaseFragment = new PurchasesFragment();
