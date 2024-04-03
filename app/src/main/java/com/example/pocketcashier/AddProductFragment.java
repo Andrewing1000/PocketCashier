@@ -2,11 +2,22 @@ package com.example.pocketcashier;
 
 import static com.example.pocketcashier.MainActivity.validString;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,11 +30,9 @@ import android.widget.Toast;
 
 import com.example.pocketcashier.model.Product;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link EditProductFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.security.Permission;
+
+
 public class AddProductFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
@@ -46,45 +55,28 @@ public class AddProductFragment extends Fragment {
     private TextView cantField;
 
     private ImageButton uploadImg;
+
+    private ImageButton takeImg;
+    private ImageView image;
     private View rootView;
 
+    private Uri imagePath;
+
+    ActivityResultLauncher<Intent> takePictureLauncher;
+
+    ActivityResultLauncher<String> pickPictureLauncher;
     private static final int PICK_IMAGE_REQUEST = 1;
     public AddProductFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment EditProductFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static EditProductFragment newInstance(String param1, String param2) {
-        EditProductFragment fragment = new EditProductFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_add_product, container, false);
+        imagePath = null;
 
         backButton = rootView.findViewById(R.id.back_button);
         saveButton = rootView.findViewById(R.id.save_button);
@@ -93,6 +85,8 @@ public class AddProductFragment extends Fragment {
         serialField = rootView.findViewById(R.id.edit_product_ser_field);
         cantField = rootView.findViewById(R.id.edit_product_cant_field);
         uploadImg = rootView.findViewById(R.id.upload_product_image);
+        takeImg = rootView.findViewById(R.id.take_product_image);
+        image = rootView.findViewById(R.id.product_image);
 
         nameField.setHint("Nombre del producto");
         priceField.setHint("Precio unitario");
@@ -132,19 +126,90 @@ public class AddProductFragment extends Fragment {
                 return;
             }
 
-            ((MainActivity)getActivity()).addProduct(new Product(1, nameString, price, serialString, null));
+            Product result = ((MainActivity)getActivity()).addProduct(new Product(1, nameString, price, serialString, 0), imagePath);
+            if(result == null){
+                Toast.makeText(getContext(), "Revise los datos", Toast.LENGTH_SHORT).show();
+            }
+            else{
+                ((MainActivity)getActivity()).switchToInventory();
+                Toast.makeText(getContext(), "Adición exitosa", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+        takePictureLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+            if (result.getResultCode() == Activity.RESULT_OK) {
+                // Photo taken, handle it here
+                Bundle extras = result.getData().getExtras();
+                Bitmap imageBitmap = (Bitmap) extras.get("data");
+                // Do something with the imageBitmap (e.g., display it in an ImageView)
+                image.setImageBitmap(imageBitmap);
+            }
+        });
+
+
+        pickPictureLauncher = registerForActivityResult(new ActivityResultContracts.GetContent(), result -> {
+            if (result != null) {
+                // Image picked, handle it here
+                imagePath = result;
+                // Do something with the selectedImageUri (e.g., display it in an ImageView)
+            }
         });
 
         uploadImg.setOnClickListener(e -> {
-            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-            intent.setType("image/*"); // Allow only image files
-            startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
+            dispatchPickImageIntent();
         });
+
+
+        takeImg.setOnClickListener(e -> {
+
+                if (checkCameraPermission()) {
+                    dispatchTakePictureIntent();
+                } else {
+                    requestCameraPermission();
+                }
+            }
+        );
+
 
 
 
         return rootView;
     }
+
+    private static final int REQUEST_CAMERA_PERMISSION = 100;
+
+    private static final int REQUEST_IMAGE_CAPTURE = 1;
+    private static final int REQUEST_PICK_IMAGE = 2;
+
+    private boolean checkCameraPermission() {
+
+        return true;//ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION) == PackageManager.PERMISSION_GRANTED;
+    }
+
+    // Method to request camera permission
+    private void requestCameraPermission() {
+        //ActivityCompat.requestPermissions(requireActivity(), new String[]{Manifest.permission.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION}, REQUEST_CAMERA_PERMISSION);
+    }
+
+    private void dispatchTakePictureIntent() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(requireActivity().getPackageManager()) != null) {
+            takePictureLauncher.launch(takePictureIntent);
+        }
+    }
+
+    // Method to open the file picker
+    private void dispatchPickImageIntent() {
+        Intent pickImageIntent = new Intent(Intent.ACTION_GET_CONTENT);
+        pickImageIntent.setType("image/*");
+        if (pickImageIntent.resolveActivity(requireActivity().getPackageManager()) != null) {
+            // Start the file picker activity
+            pickPictureLauncher.launch("image/*");
+        }
+    }
+
+
 
 
 }

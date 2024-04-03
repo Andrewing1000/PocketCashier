@@ -19,9 +19,12 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
+import com.example.pocketcashier.model.DBManager;
 import com.example.pocketcashier.model.Product;
 import com.example.pocketcashier.utilitaries.MenuTitle;
 import com.google.android.material.navigation.NavigationView;
@@ -32,6 +35,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -39,16 +43,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Context context;
 
     private POSFragment posFragment;
-    private CategoriesFragment categoriesFragment;
     private InventoryFragment inventoryFragment;
     private PurchasesFragment purchaseFragment;
     private SalesFragment salesFragment;
     private ClientsFragment clientsFragment;
+    private DBManager dataBase;
+    private ArrayList<Product> inventory;
+    private static String PRODUCT_IMAGES_PATH = "porduct_images";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        inventory = new ArrayList<>();
+
+        dataBase = new DBManager(this);
+        innit();
 
         context = this;
 
@@ -91,17 +102,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         toggle.syncState();
         toolbar.getNavigationIcon().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
 
-        if(savedInstanceState == null){
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new InventoryFragment()).commit();
-            navigationView.setCheckedItem(R.id.nav_inventory);
-        }
 
         posFragment = new POSFragment();
         salesFragment = new SalesFragment();
-        inventoryFragment = new InventoryFragment();
-        categoriesFragment = new CategoriesFragment();
+        inventoryFragment = new InventoryFragment(inventory);
         purchaseFragment = new PurchasesFragment();
         clientsFragment = new ClientsFragment();
+
+        if(savedInstanceState == null){
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, inventoryFragment).commit();
+            navigationView.setCheckedItem(R.id.nav_inventory);
+        }
     }
 
     @Override
@@ -133,15 +144,63 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
+    void innit(){
+        inventory.addAll(dataBase.getAllProducts());
+    }
+
     public void startAddProduct(){
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new AddProductFragment()).commit();
     }
 
-    public void addProduct(Product newProduct){
+    public Product addProduct(Product newProduct, Uri imagePath){
 
+        Bitmap bitmap = null;
+        if(imagePath != null){
+            try {
+                InputStream inputStream = context.getContentResolver().openInputStream(imagePath);
+                if (inputStream != null) {
+                    bitmap = BitmapFactory.decodeStream(inputStream);
+                    inputStream.close();
+                }
+            } catch (FileNotFoundException e) {
+                bitmap = null;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        if(bitmap == null){
+            Toast.makeText(this, "No se encontró la imagen", Toast.LENGTH_SHORT).show();
+            newProduct.setImagePath(null);
+        }
+        else{
+            String savedPath = dataBase.getNextProductId()+"";
+            this.saveImageToInternalStorage(bitmap, savedPath);
+            newProduct.setImagePath(savedPath);
+        }
+
+        try {
+            dataBase.addProduct(newProduct);
+            newProduct.setId(dataBase.getNextProductId()-1);
+            inventoryFragment.addProduct(newProduct);
+            return newProduct;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
     }
 
-    public void deleteProduct(Product product){
+    public boolean deleteProduct(Product product){
+        try {
+            dataBase.deleteProduct(product);
+            inventoryFragment.removeProduct(product);
+            return true;
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            return false;
+        }
 
     }
 
@@ -150,25 +209,49 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     public void startEditProduct(Product product){
-
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new EditProductFragment(product)).commit();
     }
 
     public void cancelEditProduct(){
-
+        switchToInventory();
     }
 
-    public boolean editProduct(Product currentProduct, Product changedProduct){
+    public Product editProduct(Product currentProduct, Product changedProduct, Uri imagePath){
 
-        return false;
-    }
+        Bitmap bitmap = null;
+        if(imagePath != null){
+            try {
+                InputStream inputStream = context.getContentResolver().openInputStream(imagePath);
+                if (inputStream != null) {
+                    bitmap = BitmapFactory.decodeStream(inputStream);
+                    inputStream.close();
+                }
+            } catch (FileNotFoundException e) {
+                bitmap = null;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 
-    public void startAddCategory(){
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new AddCategoryFragment()).commit();
+        if(bitmap == null){
+            Toast.makeText(this, "No se encontró la imagen", Toast.LENGTH_SHORT).show();
+            changedProduct.setImagePath(null);
+        }
+        else{
+            String savedPath = dataBase.getNextProductId()+"";
+            this.saveImageToInternalStorage(bitmap, savedPath);
+            changedProduct.setImagePath(savedPath);
+        }
 
-    }
-
-    public void addCategory(){
-
+        try {
+            dataBase.updateProduct(changedProduct);
+            inventoryFragment.updateProduct(currentProduct, changedProduct);
+            return changedProduct;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
     }
 
     public void startSale(){
@@ -208,7 +291,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     public void switchToCategories(){
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, categoriesFragment).commit();
     }
 
     public void switchToClients(){
@@ -220,10 +302,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
 
-    private void saveImageToInternalStorage(Bitmap bitmapImage, String filename) {
+    public void updateInventory(){
+
+    }
+
+    public void saveImageToInternalStorage(Bitmap bitmapImage, String filename) {
         FileOutputStream fos = null;
         try {
-            File directory = new File(context.getFilesDir(), "images");
+            File directory = new File(context.getFilesDir(), PRODUCT_IMAGES_PATH);
             if (!directory.exists()) {
                 directory.mkdir();
             }
@@ -244,9 +330,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
 
-    private Bitmap loadImageFromInternalStorage(String filename) {
+    public Bitmap loadImageFromInternalStorage(String filename) {
         try {
-            File directory = new File(context.getFilesDir(), "images");
+            File directory = new File(context.getFilesDir(), PRODUCT_IMAGES_PATH);
             File file = new File(directory, filename);
             FileInputStream fis = new FileInputStream(file);
             return BitmapFactory.decodeStream(fis);
@@ -265,24 +351,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private static final int PICK_IMAGE_REQUEST = 1;
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
-            // Get the URI of the selected file
-            Uri uri = data.getData();
-
-            // Now you can save the image file locally in your app using the URI
-            // For example, you can use ContentResolver to open an InputStream and copy the file
-            try {
-                InputStream inputStream = getContentResolver().openInputStream(uri);
-                // Now you can save the inputStream to a file in your app's local storage
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-        }
-    }
 
 
 }

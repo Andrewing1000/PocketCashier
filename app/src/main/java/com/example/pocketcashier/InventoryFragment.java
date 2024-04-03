@@ -8,6 +8,7 @@ import android.os.Bundle;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,10 +29,19 @@ public class InventoryFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private ProductAdapter adapter;
-    private List<Product> productList;
+    private ArrayList<Product> productList;
 
 
     FloatingActionButton addProduct;
+
+
+    public InventoryFragment(ArrayList<Product> collection){
+        super();
+        productList = collection;
+
+        Log.d("papapa", productList.toString());
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -57,7 +67,6 @@ public class InventoryFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         // Initialize product list and adapter
-        productList = new ArrayList<>();
         adapter = new ProductAdapter(getActivity(), productList);
         recyclerView.setAdapter(adapter);
 
@@ -67,7 +76,7 @@ public class InventoryFragment extends Fragment {
 
 
         // Dummy data - Replace with your actual data retrieval logic
-        productList.add(new Product(1, "Camisa", 25.99, "ABC123", 50));
+        /*productList.add(new Product(1, "Camisa", 25.99, "ABC123", 50));
         productList.add(new Product(2, "Pantalón", 39.99, "DEF456", 30));
         productList.add(new Product(3, "Zapatos", 59.99, "GHI789", 20));
         productList.add(new Product(4, "Sombrero", 14.99, "JKL012", 40));
@@ -86,11 +95,39 @@ public class InventoryFragment extends Fragment {
         productList.add(new Product(17, "Abrigo", 79.99, "WXY901", 15));
         productList.add(new Product(18, "Botas", 69.99, "ZAB234", 20));
         productList.add(new Product(19, "Sandalias", 39.99, "BCD567", 30));
-        productList.add(new Product(20, "Chaleco", 22.99, "EFG890", 40));
+        productList.add(new Product(20, "Chaleco", 22.99, "EFG890", 40));*/
 
         // Notify adapter of data change
         adapter.notifyDataSetChanged();
 
         return rootView;
     }
+
+    public void addProduct(Product newProduct) {
+        productList.add(newProduct);
+        adapter.notifyItemInserted(productList.size() - 1);
+
+    }
+
+    public void removeProduct(Product oldProduct) {
+
+        int positionToRemove = productList.indexOf(oldProduct);
+        if (positionToRemove >= 0 && positionToRemove < productList.size()) {
+            productList.remove(positionToRemove);
+            adapter.notifyItemRemoved(positionToRemove);
+        }
+
+    }
+
+    public void updateProduct(Product oldProduct, Product updatedProduct) {
+
+        int positionToUpdate = productList.indexOf(oldProduct);
+        if (positionToUpdate >= 0 && positionToUpdate < productList.size()) {
+            productList.set(positionToUpdate, updatedProduct);
+            adapter.notifyItemChanged(positionToUpdate);
+        }
+
+    }
+
+
 }

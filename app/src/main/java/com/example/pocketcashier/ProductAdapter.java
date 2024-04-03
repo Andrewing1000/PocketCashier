@@ -1,9 +1,11 @@
 package com.example.pocketcashier;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -33,6 +35,12 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     @Override
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
         Product product = productList.get(position);
+        String imagePath = product.getImagePath();
+
+        if(imagePath != null){
+            holder.setImage(((MainActivity)context).loadImageFromInternalStorage(imagePath));
+        }
+
         holder.bind(product);
     }
 
@@ -48,7 +56,12 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         private TextView costTextView;
 
         private TextView serialTextView;
+
+        private ImageView imageView;
         private Product product;
+
+        private Bitmap image;
+
 
         public ProductViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -56,6 +69,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             serialTextView = itemView.findViewById(R.id.text_serial_number);
             cantTextView = itemView.findViewById(R.id.text_product_cant);
             costTextView = itemView.findViewById(R.id.text_product_cost);
+            imageView = itemView.findViewById(R.id.product_image);
         }
 
         public void bind(Product product) {
@@ -64,7 +78,18 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             cantTextView.setText(product.getQuantity() + "");
             costTextView.setText(product.getUnitPrice() + " Bs.");
 
+            if(image != null) imageView.setImageBitmap(image);
+            else imageView.setImageResource(R.drawable.image_place_holder);
+
             this.product = product;
+
+            super.itemView.setOnClickListener(e -> {
+                ((MainActivity)context).startEditProduct(this.product);
+            });
+        }
+
+        public void setImage(Bitmap image) {
+            this.image = image;
         }
     }
 }

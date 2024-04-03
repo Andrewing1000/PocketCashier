@@ -78,24 +78,72 @@
         </LinearLayout>
 
 
+        <LinearLayout
+            android:id="@+id/delete_button"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/save_button"
+            android:layout_marginTop="20dp"
+
+            android:background="@drawable/button_background"
+            android:backgroundTint="@color/button_orange"
+
+            android:paddingVertical="5dp"
+            android:paddingRight="20dp">
+
+
+            <ImageButton
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_gravity="center_vertical"
+
+                android:clickable="true"
+                android:layout_marginLeft="20dp"
+                android:scaleType="fitCenter"
+
+                android:background="@drawable/fab_shape"
+                android:backgroundTint="@color/transparent"
+                android:src="@drawable/delete"
+                app:tint="@color/black" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:paddingBottom="3dp"
+
+                android:gravity="center"
+                android:text="Eliminar"
+                android:fontFamily="@font/urbanist_bold"
+                android:textSize="20dp">
+
+            </TextView>
+
+        </LinearLayout>
+
+
         <TextView
             android:id="@+id/text_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
 
-            android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
 
-            android:paddingTop="50dp"
-            android:paddingBottom="5dp"
+            android:layout_marginLeft="21dp"
+            android:layout_marginRight="19dp"
 
-            android:text="Editar Producto"
-            android:textSize="30dp"
+            android:layout_marginBottom="21dp"
             android:fontFamily="@font/urbanist_extra_bold"
             android:gravity="left|center"
 
-            android:textColor="@color/white" />
+            android:paddingBottom="5dp"
+            android:text="Editar Producto"
+            android:textColor="@color/white"
+            android:textSize="30dp" />
 
     </RelativeLayout>
 
@@ -165,6 +213,25 @@
                 android:src="@drawable/image_place_holder">
 
             </ImageView>
+
+
+            <ImageButton
+                android:id="@+id/take_product_image"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+
+                android:clickable="true"
+                android:layout_toRightOf="@id/product_image"
+                android:layout_above="@id/upload_product_image"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:scaleType="fitCenter"
+
+                android:background="@drawable/fab_shape"
+                android:backgroundTint="@color/transparent"
+                android:src="@drawable/camera"
+                app:tint="@color/button_orange" />
 
             <ImageButton
                 android:id="@+id/upload_product_image"
