@@ -216,24 +216,6 @@
 
 
             <ImageButton
-                android:id="@+id/take_product_image"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-
-                android:clickable="true"
-                android:layout_toRightOf="@id/product_image"
-                android:layout_above="@id/upload_product_image"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
-                android:scaleType="fitCenter"
-
-                android:background="@drawable/fab_shape"
-                android:backgroundTint="@color/transparent"
-                android:src="@drawable/camera"
-                app:tint="@color/button_orange" />
-
-            <ImageButton
                 android:id="@+id/upload_product_image"
                 android:layout_width="40dp"
                 android:layout_height="40dp"

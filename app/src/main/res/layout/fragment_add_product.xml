@@ -182,7 +182,6 @@
 
                 android:background="@drawable/fab_shape"
                 android:backgroundTint="@color/transparent"
-                android:src="@drawable/camera"
                 app:tint="@color/button_orange" />
 
             <ImageButton

@@ -24,8 +24,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.example.pocketcashier.model.Client;
 import com.example.pocketcashier.model.DBManager;
 import com.example.pocketcashier.model.Product;
+import com.example.pocketcashier.model.Sale;
 import com.example.pocketcashier.utilitaries.MenuTitle;
 import com.google.android.material.navigation.NavigationView;
 
@@ -49,6 +51,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private ClientsFragment clientsFragment;
     private DBManager dataBase;
     private ArrayList<Product> inventory;
+    private ArrayList<Client> clients;
+    private ArrayList<Sale> sales;
+
+    private ArrayList<Product> cart;
     private static String PRODUCT_IMAGES_PATH = "porduct_images";
 
     @Override
@@ -57,6 +63,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
 
         inventory = new ArrayList<>();
+        sales = new ArrayList<>();
+        clients = new ArrayList<>();
 
         dataBase = new DBManager(this);
         innit();
@@ -109,15 +117,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         purchaseFragment = new PurchasesFragment();
         clientsFragment = new ClientsFragment();
 
+        //posFragment.setAdapter(inventoryFragment.getAdapter());
         if(savedInstanceState == null){
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, inventoryFragment).commit();
             navigationView.setCheckedItem(R.id.nav_inventory);
         }
     }
 
+    private int itemSelectedId = R.id.nav_inventory;
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        int itemSelectedId = item.getItemId();
+        this.itemSelectedId = item.getItemId();
 
         if(itemSelectedId == R.id.nav_pos){
             switchToPOS();
@@ -145,7 +155,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     void innit(){
-        inventory.addAll(dataBase.getAllProducts());
+        //inventory.addAll(dataBase.getAllProducts());
+        //sales.addAll(dataBase.getAllSales());
+        //clients.addAll(dataBase.getAllClients());
     }
 
     public void startAddProduct(){
@@ -209,7 +221,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     public void startEditProduct(Product product){
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new EditProductFragment(product)).commit();
+
+        if(this.itemSelectedId == R.id.nav_pos){
+            cart.add(product);
+            Toast.makeText(this, "Producto Añadido", Toast.LENGTH_SHORT ).show();
+        }
+        else getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new EditProductFragment(product)).commit();
     }
 
     public void cancelEditProduct(){
@@ -255,14 +272,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     public void startSale(){
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ConfirmSale()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ConfirmSale(cart)).commit();
     }
 
     public void cancelSale(){
-
+        cart.clear();
+        switchToPOS();
+        Toast.makeText(this, "Compra Cancelada", Toast.LENGTH_SHORT).show();
     }
 
     public boolean makeSale(){
+
+        cart.clear();
+        switchToPOS();
+        Toast.makeText(this, "Compra Completada", Toast.LENGTH_SHORT).show();
         return false;
     }
 

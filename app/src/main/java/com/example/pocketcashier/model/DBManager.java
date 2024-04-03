@@ -32,6 +32,30 @@ public class DBManager extends SQLiteOpenHelper {
 
 
 
+    private static final String SQL_CREATE_CLIENTS_TABLE =
+            "CREATE TABLE IF NOT EXISTS Clients (\n" +
+                    "    id INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
+                    "    name TEXT NOT NULL,\n" +
+                    "    ci TEXT NOT NULL\n" +
+                    ");";
+
+    private static final String SQL_CREATE_SALE_TABLE =
+            "CREATE TABLE IF NOT EXISTS Sale (\n" +
+                    "    id INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
+                    "    DateTime TEXT NOT NULL,\n" +
+                    "    total REAL NOT NULL\n" +
+                    ");";
+
+    private static final String SQL_CREATE_SALE_PRODUCTS_TABLE =
+            "CREATE TABLE IF NOT EXISTS Sale_Products (\n" +
+                    "    sale_id INTEGER,\n" +
+                    "    product_id INTEGER,\n" +
+                    "    FOREIGN KEY (sale_id) REFERENCES Sale(id),\n" +
+                    "    FOREIGN KEY (product_id) REFERENCES Products(id),\n" +
+                    "    PRIMARY KEY (sale_id, product_id)\n" +
+                    ");";
+
+
 
 
     public DBManager(Context context) {
@@ -46,6 +70,9 @@ public class DBManager extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
 
         db.execSQL(SQL_CREATE_PRODUCTS_TABLE);
+        db.execSQL(SQL_CREATE_SALE_TABLE);
+        db.execSQL(SQL_CREATE_CLIENTS_TABLE);
+        db.execSQL(SQL_CREATE_SALE_PRODUCTS_TABLE);
     }
 
     @Override
@@ -147,6 +174,164 @@ public class DBManager extends SQLiteOpenHelper {
         // Close the database connection
         db.close();
     }
+
+
+
+    @SuppressLint("Range")
+    public List<Client> getAllClients() {
+        List<Client> clientList = new ArrayList<>();
+
+        // Select All Query
+        String selectQuery = "SELECT * FROM Clients";
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        // Loop through all rows and add to list
+        if (cursor.moveToFirst()) {
+            do {
+                Client client = new Client(
+                        cursor.getInt(cursor.getColumnIndex("id")),
+                        cursor.getString(cursor.getColumnIndex("name")),
+                        cursor.getString(cursor.getColumnIndex("ci"))
+                );
+                // Adding client to list
+                clientList.add(client);
+            } while (cursor.moveToNext());
+        }
+
+        // Close cursor and database connection
+        cursor.close();
+        db.close();
+
+        // Return client list
+        return clientList;
+    }
+
+    public void addClient(Client client) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put("name", client.getName());
+        values.put("ci", client.getCi());
+
+        // Insert the values into the Clients table
+        db.insert("Clients", null, values);
+
+        // Close the database connection
+        db.close();
+    }
+
+    public void deleteClient(Client client) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        // Define the WHERE clause to specify the client to delete
+        String selection = "id = ?";
+        String[] selectionArgs = { String.valueOf(client.getId()) };
+
+        // Perform the deletion
+        db.delete("Clients", selection, selectionArgs);
+
+        // Close the database connection
+        db.close();
+    }
+
+    public void updateClient(Client client) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put("name", client.getName());
+        values.put("ci", client.getCi());
+
+        // Define the WHERE clause to specify the client to update
+        String selection = "id = ?";
+        String[] selectionArgs = { String.valueOf(client.getId()) };
+
+        // Perform the update
+        db.update("Clients", values, selection, selectionArgs);
+
+        // Close the database connection
+        db.close();
+    }
+
+
+
+    @SuppressLint("Range")
+    public List<Sale> getAllSales() {
+        List<Sale> saleList = new ArrayList<>();
+
+        // Select All Query
+        String selectQuery = "SELECT * FROM Sale";
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        // Loop through all rows and add to list
+        if (cursor.moveToFirst()) {
+            do {
+                Sale sale = new Sale(
+                        cursor.getInt(cursor.getColumnIndex("id")),
+                        cursor.getString(cursor.getColumnIndex("DateTime")),
+                        cursor.getDouble(cursor.getColumnIndex("total"))
+                );
+                // Adding sale to list
+                saleList.add(sale);
+            } while (cursor.moveToNext());
+        }
+
+        // Close cursor and database connection
+        cursor.close();
+        db.close();
+
+        // Return sale list
+        return saleList;
+    }
+
+    public void addSale(Sale sale) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put("DateTime", sale.getDateTime());
+        values.put("total", sale.getTotal());
+
+        // Insert the values into the Sale table
+        db.insert("Sale", null, values);
+
+        // Close the database connection
+        db.close();
+    }
+
+    public void deleteSale(Sale sale) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        // Define the WHERE clause to specify the sale to delete
+        String selection = "DateTime = ?";
+        String[] selectionArgs = { String.valueOf(sale.getDateTime()) };
+
+        // Perform the deletion
+        db.delete("Sale", selection, selectionArgs);
+
+        // Close the database connection
+        db.close();
+    }
+
+    public void updateSale(Sale sale) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put("total", sale.getTotal());
+
+        // Define the WHERE clause to specify the sale to update
+        String selection = "DateTime = ?";
+        String[] selectionArgs = { String.valueOf(sale.getDateTime()) };
+
+        // Perform the update
+        db.update("Sale", values, selection, selectionArgs);
+
+        // Close the database connection
+        db.close();
+    }
+
 
 
     public int getNextProductId() {

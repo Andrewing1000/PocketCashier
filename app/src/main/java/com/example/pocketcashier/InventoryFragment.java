@@ -132,7 +132,7 @@ public class InventoryFragment extends Fragment {
 
 
         // Dummy data - Replace with your actual data retrieval logic
-        /*productList.add(new Product(1, "Camisa", 25.99, "ABC123", 50));
+        productList.add(new Product(1, "Camisa", 25.99, "ABC123", 50));
         productList.add(new Product(2, "Pantalón", 39.99, "DEF456", 30));
         productList.add(new Product(3, "Zapatos", 59.99, "GHI789", 20));
         productList.add(new Product(4, "Sombrero", 14.99, "JKL012", 40));
@@ -151,7 +151,7 @@ public class InventoryFragment extends Fragment {
         productList.add(new Product(17, "Abrigo", 79.99, "WXY901", 15));
         productList.add(new Product(18, "Botas", 69.99, "ZAB234", 20));
         productList.add(new Product(19, "Sandalias", 39.99, "BCD567", 30));
-        productList.add(new Product(20, "Chaleco", 22.99, "EFG890", 40));*/
+        productList.add(new Product(20, "Chaleco", 22.99, "EFG890", 40));
 
         // Notify adapter of data change
         adapter.notifyDataSetChanged();
