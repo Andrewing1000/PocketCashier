@@ -1,0 +1,93 @@
+package com.example.pocketcashier;
+
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.pocketcashier.model.Client;
+import com.example.pocketcashier.model.Product;
+import com.example.pocketcashier.model.Sale;
+
+import java.util.List;
+
+public class SalesAdapter extends RecyclerView.Adapter<SalesAdapter.ProductViewHolder> {
+
+    private List<Sale> productList;
+    private Context context;
+
+    public SalesAdapter(Context context, List<Sale> productList) {
+        this.context = context;
+        this.productList = productList;
+    }
+
+    @NonNull
+    @Override
+    public ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_product, parent, false);
+        return new ProductViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
+        Sale product = productList.get(position);
+        holder.bind(product);
+    }
+
+    @Override
+    public int getItemCount() {
+        return productList.size();
+    }
+
+    public class ProductViewHolder extends RecyclerView.ViewHolder {
+
+        private TextView nameTextView;
+        private TextView cantTextView;
+        private TextView costTextView;
+
+        private TextView serialTextView;
+
+        private ImageView imageView;
+        private Sale product;
+
+        private Bitmap image;
+
+        private TextView tag;
+
+
+        public ProductViewHolder(@NonNull View itemView) {
+            super(itemView);
+            nameTextView = itemView.findViewById(R.id.text_product_name);
+            serialTextView = itemView.findViewById(R.id.text_serial_number);
+            cantTextView = itemView.findViewById(R.id.text_product_cant);
+            costTextView = itemView.findViewById(R.id.text_product_cost);
+            imageView = itemView.findViewById(R.id.product_image);
+            tag = itemView.findViewById(R.id.priceTag);
+
+            tag.setText("CI cliente: ");
+        }
+
+        public void bind(Sale product) {
+
+            Client client = product.getClient();
+            nameTextView.setText(client.getName());
+            serialTextView.setText(product.getDateTime() +"");
+            cantTextView.setText(client.getCi() + "");
+            costTextView.setText(product.getTotal() + " Bs.");
+
+            imageView.setImageBitmap(null);
+
+            this.product = product;
+        }
+
+        public void setImage(Bitmap image) {
+            this.image = image;
+        }
+    }
+}

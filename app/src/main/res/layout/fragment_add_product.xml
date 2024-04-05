@@ -391,7 +391,7 @@
                 android:paddingLeft="10dp">
 
 
-                <TextView
+                <EditText
                     android:id="@+id/edit_product_cant_field"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -408,11 +408,11 @@
                     android:fontFamily="@font/urbanist_regular"
                     android:scrollHorizontally="true"
                     android:maxLines="1"
-                    android:inputType="text"
+                    android:inputType="number"
 
                     android:paddingLeft="10dp"
                     android:layout_marginRight="25dp">
-                </TextView>
+                </EditText>
             </LinearLayout>
 
         </LinearLayout>

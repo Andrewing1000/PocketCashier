@@ -52,7 +52,7 @@ public class AddProductFragment extends Fragment {
     private EditText priceField;
 
     private EditText serialField;
-    private TextView cantField;
+    private EditText cantField;
 
     private ImageButton uploadImg;
 
@@ -91,8 +91,7 @@ public class AddProductFragment extends Fragment {
         nameField.setHint("Nombre del producto");
         priceField.setHint("Precio unitario");
         serialField.setHint("# de serie");
-
-        cantField.setText("0");
+        cantField.setHint("Stock");
 
         backButton.setOnClickListener(e -> {
             ((MainActivity)getActivity()).cancelAddProduct();
@@ -103,6 +102,7 @@ public class AddProductFragment extends Fragment {
             String nameString = nameField.getText().toString();
             String priceString = priceField.getText().toString();
             String serialString = serialField.getText().toString();
+            String cantString = cantField.getText().toString();
 
             if(!validString(nameString)){
                 Toast.makeText(getContext(), "Llene el nombre", Toast.LENGTH_SHORT).show();
@@ -116,6 +116,10 @@ public class AddProductFragment extends Fragment {
                 Toast.makeText(getContext(), "Llene el número de serie", Toast.LENGTH_SHORT).show();
                 return;
             }
+            if(!validString(cantString)){
+                Toast.makeText(getContext(), "Llene el stock", Toast.LENGTH_SHORT).show();
+                return;
+            }
 
             double price;
             try{
@@ -126,7 +130,16 @@ public class AddProductFragment extends Fragment {
                 return;
             }
 
-            Product result = ((MainActivity)getActivity()).addProduct(new Product(1, nameString, price, serialString, 0), imagePath);
+            int stock;
+            try{
+                stock = Integer.valueOf(priceString);
+            }
+            catch (Exception ex){
+                Toast.makeText(getContext(), "La cantidad debe ser un numero real", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            Product result = ((MainActivity)getActivity()).addProduct(new Product(1, nameString, price, serialString, stock), imagePath);
             if(result == null){
                 Toast.makeText(getContext(), "Revise los datos", Toast.LENGTH_SHORT).show();
             }
@@ -161,7 +174,7 @@ public class AddProductFragment extends Fragment {
         });
 
 
-        takeImg.setOnClickListener(e -> {
+        /*takeImg.setOnClickListener(e -> {
 
                 if (checkCameraPermission()) {
                     dispatchTakePictureIntent();
@@ -169,7 +182,7 @@ public class AddProductFragment extends Fragment {
                     requestCameraPermission();
                 }
             }
-        );
+        );*/
 
 
 

@@ -159,6 +159,61 @@
         android:padding="20dp">
 
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+
+            android:layout_marginBottom="0dp"
+            android:orientation="horizontal"
+            android:layout_weight="9"
+            android:background="@drawable/table_header">
+
+
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:gravity="center"
+
+                android:textSize="15dp"
+                android:fontFamily="@font/icon_title_font"
+                android:text="Item"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:gravity="center"
+
+                android:textSize="15dp"
+                android:fontFamily="@font/icon_title_font"
+                android:text="Precio Unitario"/>
+
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:gravity="center"
+
+                android:textSize="15dp"
+                android:fontFamily="@font/icon_title_font"
+                android:text="Cantidad"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:gravity="center"
+
+                android:textSize="15dp"
+                android:fontFamily="@font/icon_title_font"
+                android:text="Precio Parcial"/>
+
+        </LinearLayout>
+
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view_cart"
             android:layout_width="match_parent"
@@ -286,21 +341,24 @@
                 android:paddingLeft="10dp">
 
 
-                <Spinner
+                <EditText
                     android:id="@+id/client_spinner"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:backgroundTint="@null"
                     android:layout_gravity="center_vertical"
 
+
+                    android:inputType="number"
+
+                    android:hint="CI/NIT"
                     android:textColor="@color/white"
                     android:fontFamily="@font/urbanist_regular"
                     android:textSize="20dp"
                     android:textColorHint="#C4C4C4"
                     android:layout_marginRight="25dp"
 
-                    style="@style/SpinnerStyle"
-                    android:drawableEnd="@drawable/ic_dropdown_white" />
+                    style="@style/SpinnerStyle" />
 
             </LinearLayout>
 

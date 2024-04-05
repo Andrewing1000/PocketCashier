@@ -54,7 +54,7 @@ public class EditProductFragment extends Fragment {
     private EditText priceField;
 
     private EditText serialField;
-    private TextView cantField;
+    private EditText cantField;
 
     private ImageButton uploadImg;
 
@@ -95,8 +95,7 @@ public class EditProductFragment extends Fragment {
         nameField.setHint(productToEdit.getName());
         priceField.setHint(productToEdit.getUnitPrice() + "");
         serialField.setHint(productToEdit.getSerialNumber());
-
-        cantField.setText(productToEdit.getQuantity() + "");
+        cantField.setHint(productToEdit.getQuantity() + "");
 
         backButton.setOnClickListener(e -> {
             ((MainActivity)getActivity()).cancelEditProduct();
@@ -107,6 +106,7 @@ public class EditProductFragment extends Fragment {
             String nameString = nameField.getText().toString();
             String priceString = priceField.getText().toString();
             String serialString = serialField.getText().toString();
+            String cantString = cantField.getText().toString();
 
             if(!validString(nameString)){
                 nameString = productToEdit.getName();
@@ -116,6 +116,10 @@ public class EditProductFragment extends Fragment {
             }
             if(!validString(serialString)){
                 serialString = productToEdit.getSerialNumber();
+            }
+            if(!validString(cantString)){
+                cantString = productToEdit.getQuantity() + "";
+                return;
             }
 
             double price;
@@ -127,8 +131,17 @@ public class EditProductFragment extends Fragment {
                 return;
             }
 
+            int stock;
+            try{
+                stock = Integer.valueOf(priceString);
+            }
+            catch (Exception ex){
+                Toast.makeText(getContext(), "La cantidad debe ser un numero real", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
             Product result = ((MainActivity)getActivity()).editProduct( this.productToEdit,
-                                                                        new Product(productToEdit.getId(), nameString, price, serialString, 0),
+                                                                        new Product(productToEdit.getId(), nameString, price, serialString, stock),
                                                                         imagePath);
             if(result == null){
                 Toast.makeText(getContext(), "Revise los datos", Toast.LENGTH_SHORT).show();
@@ -175,7 +188,7 @@ public class EditProductFragment extends Fragment {
         });
 
 
-        takeImg.setOnClickListener(e -> {
+        /*takeImg.setOnClickListener(e -> {
 
                     if (checkCameraPermission()) {
                         dispatchTakePictureIntent();
@@ -183,7 +196,7 @@ public class EditProductFragment extends Fragment {
                         requestCameraPermission();
                     }
                 }
-        );
+        );*/
 
 
 

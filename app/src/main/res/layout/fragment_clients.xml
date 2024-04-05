@@ -74,7 +74,7 @@
             android:paddingTop="50dp"
             android:paddingBottom="5dp"
 
-            android:text="Lista de Clientes"
+            android:text="Lista de \nClientes"
             android:textSize="30dp"
             android:fontFamily="@font/urbanist_extra_bold"
             android:gravity="left|center"
@@ -86,7 +86,7 @@
 
     <!-- RecyclerView -->
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view_clients"
+        android:id="@+id/recycler_view_products"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/header_container"
@@ -96,7 +96,5 @@
         android:clipToPadding="false"
         android:paddingBottom="80dp"
         android:scrollbars="vertical" />
-
-
 
 </RelativeLayout>

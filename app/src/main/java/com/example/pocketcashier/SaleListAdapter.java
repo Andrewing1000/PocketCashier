@@ -13,16 +13,21 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.pocketcashier.model.Product;
 
+import java.util.Hashtable;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 public class SaleListAdapter extends RecyclerView.Adapter<SaleListAdapter.SaleListViewHolder> {
 
-    private List<Product> productList;
+    private LinkedHashMap<Product, Integer> productList;
     private Context context;
 
-    public SaleListAdapter(Context context, List<Product> productList) {
+    private Double total;
+
+    public SaleListAdapter(Context context,LinkedHashMap<Product, Integer> productList) {
         this.context = context;
         this.productList = productList;
+        this.total = new Double(0.0);
     }
 
     @NonNull
@@ -34,10 +39,18 @@ public class SaleListAdapter extends RecyclerView.Adapter<SaleListAdapter.SaleLi
 
     @Override
     public void onBindViewHolder(@NonNull SaleListViewHolder holder, int position) {
-        Product product = productList.get(position);
-        holder.bind(product);
+
+        Object[] keys = productList.keySet().toArray();
+        Product product = (Product) keys[position];
+        Integer cc = productList.get(product);
+
+        holder.bind(product, cc);
     }
 
+
+    public Double getTotal(){
+        return total;
+    }
     @Override
     public int getItemCount() {
         return productList.size();
@@ -51,25 +64,33 @@ public class SaleListAdapter extends RecyclerView.Adapter<SaleListAdapter.SaleLi
 
         private TextView serialTextView;
 
-        private ImageView imageView;
+        private TextView partialPrice;
+
+        private TextView totalTextView;
         private Product product;
 
 
 
         public SaleListViewHolder(@NonNull View itemView) {
             super(itemView);
+            partialPrice = itemView.findViewById(R.id.text_product_parcial);
             nameTextView = itemView.findViewById(R.id.text_product_name);
             serialTextView = itemView.findViewById(R.id.text_serial_number);
-            cantTextView = itemView.findViewById(R.id.text_product_cant);
             costTextView = itemView.findViewById(R.id.text_product_cost);
+            cantTextView = itemView.findViewById(R.id.text_product_cant);
+            totalTextView = itemView.findViewById(R.id.text_product_parcial);
         }
 
-        public void bind(Product product) {
+        public void bind(Product product, Integer cc) {
             nameTextView.setText(product.getName());
             serialTextView.setText(product.getSerialNumber()+"");
-            cantTextView.setText(product.getQuantity() + "");
             costTextView.setText(product.getUnitPrice() + " Bs.");
+            cantTextView.setText(cc + "");
 
+            double pp = cc*product.getUnitPrice();
+            partialPrice.setText(pp + "");
+
+            total += pp;
 
             this.product = product;
         }
